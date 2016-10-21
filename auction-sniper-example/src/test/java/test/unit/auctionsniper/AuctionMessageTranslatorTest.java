@@ -31,14 +31,14 @@ public class AuctionMessageTranslatorTest {
 		translator.processMessage(UNUSED_CHAT, message);
 	}
 	
-	@Test public void notifiesAuctionBidWhenPriceMessageReceived() {
+	@Test public void notifiesBidDetailsWhenCurrentPriceMessageReceived() {
 		
 		context.checking(new Expectations() {{
-			oneOf(listener).auctionBid();
+			exactly(1).of(listener).currentPrice(192,7);
 		}});
 		
 		Message message = new Message();
-		message.setBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 100; Increment: 10; Bidder: TEST");
+		message.setBody("SOLVersion: 1.1; Event: PRICE; CurrentPrice: 192; Increment: 7; Bidder: TEST");
 		translator.processMessage(UNUSED_CHAT, message);
 	}
 }

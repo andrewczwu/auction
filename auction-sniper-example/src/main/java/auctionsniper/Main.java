@@ -23,6 +23,7 @@ public class Main implements AuctionEventListener {
 	public static final String AUCTION_ID_FORMAT =
 			ITEM_ID_AS_LOGIN + "@%s/" + AUCTION_RESOURCE;
 
+	public static final String CLOSE_COMMAND_FORMAT = "SOLVersion: 1.1; Event: CLOSE;";
 	public static final String JOIN_COMMAND_FORMAT = "SOLVersion: 1.1; Command: JOIN;";
 	public static final String BID_COMMAND_FORMAT = "SOLVersion: 1.1; Command: BID; Price: %d;";
 
@@ -93,8 +94,13 @@ public class Main implements AuctionEventListener {
 	}
 
 	@Override
-	public void auctionBid() {
+	public void currentPrice(int price, int increment) {
 		// TODO Auto-generated method stub
-		
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				ui.showStatus(MainWindow.STATUS_BIDDING);
+			}
+		});
 	}
+
 }

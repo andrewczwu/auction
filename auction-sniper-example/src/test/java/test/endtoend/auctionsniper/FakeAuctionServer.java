@@ -68,7 +68,7 @@ public class FakeAuctionServer {
 	  }
 	  
 	  public void announceClosed() throws XMPPException {
-		  currentChat.sendMessage(new Message());
+		  currentChat.sendMessage(Main.CLOSE_COMMAND_FORMAT);
 	  }
 	  
 	  public String getItemId() {

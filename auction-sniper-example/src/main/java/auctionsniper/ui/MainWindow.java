@@ -23,6 +23,7 @@ public class MainWindow extends JFrame {
   public static final String APPLICATION_TITLE = "Auction Sniper";
   public static final String STATUS_JOINING = "JOINING";
   public static final String STATUS_LOST = "LOST";
+  public static final String STATUS_BIDDING = "BIDDING";
   public static final String SNIPER_STATUS_NAME = "sniper status";
   
   private final JLabel sniperStatus = createLabel(STATUS_JOINING);
