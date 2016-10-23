@@ -1,5 +1,6 @@
 package test.endtoend.auctionsniper;
 
+import org.junit.After;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
@@ -33,5 +34,12 @@ public class AuctionSniperEndToEndTest {
 		  application.showsSniperHasLostAuction();
 	  }
 	  
-
+	  /*
+	  @After public void stopAuction() { 
+		    auction.stop(); 		   
+	  }*/
+	  
+	  @After public void stopApplication() { 
+	    application.stop(); 
+	  } 
 }

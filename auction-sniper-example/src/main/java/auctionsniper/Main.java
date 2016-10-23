@@ -12,7 +12,7 @@ import org.jivesoftware.smack.packet.Message;
 
 import auctionsniper.ui.MainWindow;;
 
-public class Main implements AuctionEventListener {
+public class Main implements SniperListener {
 	private static final int ARG_HOSTNAME = 0;
 	private static final int ARG_USERNAME = 1;
 	private static final int ARG_PASSWORD = 2;
@@ -29,7 +29,7 @@ public class Main implements AuctionEventListener {
 
 	private MainWindow ui;
 	
-	private Chat notToBeGCd;
+	private Chat notToBeGCd;	
 	
 	public Main() throws Exception {
 		startUserInterface();
@@ -47,11 +47,24 @@ public class Main implements AuctionEventListener {
 	{
 		disconnectWhenUICloses(connection);
 		final Chat chat = connection.getChatManager().createChat(
-			auctionId(itemId, connection),
-			new AuctionMessageTranslator(this));
+			auctionId(itemId, connection), null
+			);
 		this.notToBeGCd = chat;
-		chat.sendMessage(JOIN_COMMAND_FORMAT);
+		Auction auction = new Auction() {
+			public void bid(int amount)
+			{
+				try {
+					chat.sendMessage(String.format(BID_COMMAND_FORMAT, amount));
+				}
+				catch (XMPPException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		};
 
+		chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
+		chat.sendMessage(JOIN_COMMAND_FORMAT);
 	}
 	
 	private void startUserInterface() throws Exception {
@@ -84,17 +97,18 @@ public class Main implements AuctionEventListener {
 	}
 
 	
-	public void auctionClosed() {
+	@Override
+	public void sniperLost() {
+		// TODO Auto-generated method stub
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				ui.showStatus(MainWindow.STATUS_LOST);
 			}
 		});
-		
 	}
 
 	@Override
-	public void currentPrice(int price, int increment) {
+	public void sniperBidding() {
 		// TODO Auto-generated method stub
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
