@@ -46,9 +46,7 @@ public class AuctionSniperEndToEndTest {
 		  auction.reportPrice(1000, 97, ApplicationRunner.SNIPER_XMPP_ID);
 		  application.hasShownSniperIsWinning();
 		  auction.announceClosed();
-		  application.showsSniperHasWonAuction();
-		  
-		  
+		  application.showsSniperHasWonAuction();		 		 
 	  }
 	  
 	  /*
