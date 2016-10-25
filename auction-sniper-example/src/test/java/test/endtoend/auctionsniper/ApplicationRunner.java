@@ -53,6 +53,14 @@ public class ApplicationRunner {
 	  }
   }
   
+  public void hasShownSniperIsWinning() {
+	  driver.showsSniperStatus(MainWindow.STATUS_WINNING);
+  }
+  
+  public void showsSniperHasWonAuction() {
+	  driver.showsSniperStatus(MainWindow.STATUS_WON);
+  }
+  
   private void makeSureAwtIsLoadedBeforeStartingTheDriverOnOSXToStopDeadlock() {
 	    try {
 	      SwingUtilities.invokeAndWait(new Runnable() { public void run() {} });
